@@ -46,7 +46,8 @@ function App() {
   const [email, setEmail] = useState("");
   const [year, setYear] = useState("");
 
-  const appendUser = () => {
+  const appendUser = (event) => {
+    event.preventDefault();
     const newUser = {
       id: new Date(),
       email: email,
