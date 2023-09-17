@@ -23,7 +23,7 @@ const AppendUser = ({ appendUser }) => {
 
   return (
     <div>
-      <form onSubmit={appendUser} className={classes.addForm}>
+      <form onSubmit={addNewUser} className={classes.addForm}>
         Имя:{" "}
         <input
           type="text"

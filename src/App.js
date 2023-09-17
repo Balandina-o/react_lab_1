@@ -3,6 +3,7 @@ import UserList from "./components/UserList";
 import React, { useState, useEffect } from "react";
 
 import axios from "axios";
+import CustomSelect from "./CustomSelect";
 
 function App() {
   // const [users, setUsers] = useState([
@@ -44,12 +45,13 @@ function App() {
   //   },
   // ]);
 
-  const [name, setName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [year, setYear] = useState("");
+  // const [name, setName] = useState("");
+  // const [lastName, setLastName] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [year, setYear] = useState("");
 
   const [users, setUsers] = useState([]);
+  const [sortType, setSortType] = useState([""]);
 
   const appendUser = (newUser) => {
     setUsers([...users, newUser]);
@@ -65,6 +67,13 @@ function App() {
     setUsers(res.data.data);
   }
 
+  const sortUserList = (sort) => {
+    setSortType(sort);
+    const sortedList = [...users];
+    sortedList.sort((a, b) => a[sort].localeCompare(b[sort]));
+    setUsers(sortedList);
+  };
+
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -72,6 +81,7 @@ function App() {
   return (
     <div>
       <AppendUser appendUser={appendUser} />
+      <CustomSelect value={sortType} onChange={sortUserList} />
       <UserList userList={users} deleteUserItem={deleteUser} />;
     </div>
   );
