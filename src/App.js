@@ -1,6 +1,6 @@
 import AppendUser from "./components/AppendUser";
 import UserList from "./components/UserList";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import axios from "axios";
 
@@ -61,13 +61,17 @@ function App() {
 
   async function fetchUsers() {
     const res = await axios.get("https://reqres.in/api/users?page=2");
-    console.log("users: ", res);
+    // console.log("users: ", res.data.data);
+    setUsers(res.data.data);
   }
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
   return (
     <div>
       <AppendUser appendUser={appendUser} />
-      <button onClick={fetchUsers}>Load Users</button>
       <UserList userList={users} deleteUserItem={deleteUser} />;
     </div>
   );
